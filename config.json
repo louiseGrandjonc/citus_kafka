@@ -1,12 +1,12 @@
 {
     "topics": ["test"],
-    "db.database": "test_kafka",
-    "db.password": "",
-    "db.username": "louisegrandjonc",
-    "db.schema": "public",
-    "db.table": "kafka_test",
-    "db.columns": ["a", "b"],
-    "db.sharding_key": "a",
+    "database": "test_kafka",
+    "password": "",
+    "username": "louisegrandjonc",
+    "schema": "public",
+    "table": "kafka_test",
+    "columns": ["id", "name", "login_time"], 
+    "sharding_key": "id",
     "bootstrap_servers": ["localhost:9092"],
     "consumer_timeout": 1000
 }

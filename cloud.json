@@ -4,32 +4,14 @@
         "port": 5432
     },
     "workers": [
-
-        {
-            "host": "localhost",
-            "port": 5432,
-            "shards": [
                 {
-                    "min_hash": 0,
-                    "max_hash": 1,
-                    "shard_id": 123
+                    "min_hash": -2147483648,
+                    "max_hash": 2147483647,
+                    "shard_id": 102072,
+                    "host": "localhost",
+                    "port": 5432
+
                 }
-            ]
-
-        },
-        {
-            "host": "localhost",
-            "port": 5432,
-            "shards": [
-                {
-                    "min_hash": 0,
-                    "max_hash": 1,
-                    "shard_id": 123
-                }
-            ]
-
-        }
-
     ]
 
 }
