@@ -1,0 +1,35 @@
+{
+    "coordinator": {
+        "host": "localhost",
+        "port": 5432
+    },
+    "workers": [
+
+        {
+            "host": "localhost",
+            "port": 5432,
+            "shards": [
+                {
+                    "min_hash": 0,
+                    "max_hash": 1,
+                    "shard_id": 123
+                }
+            ]
+
+        },
+        {
+            "host": "localhost",
+            "port": 5432,
+            "shards": [
+                {
+                    "min_hash": 0,
+                    "max_hash": 1,
+                    "shard_id": 123
+                }
+            ]
+
+        }
+
+    ]
+
+}

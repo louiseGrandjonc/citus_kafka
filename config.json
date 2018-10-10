@@ -1,0 +1,12 @@
+{
+    "topics": ["test"],
+    "db.database": "test_kafka",
+    "db.password": "",
+    "db.username": "louisegrandjonc",
+    "db.schema": "public",
+    "db.table": "kafka_test",
+    "db.columns": ["a", "b"],
+    "db.sharding_key": "a",
+    "bootstrap_servers": ["localhost:9092"],
+    "consumer_timeout": 1000
+}
