@@ -50,8 +50,8 @@ class CitusConsumer(KafkaConsumer):
         # load json, validate format compared to columns
         # raise error if column in json not in columns
         try:
-            print(message.value)
             record = json.loads(message.value.decode('utf8').replace("'", '"'))
+            print(record)
         except:
             return None
 
@@ -70,7 +70,7 @@ class CitusConsumer(KafkaConsumer):
         hashed_value = hash_bi(shard_key)
 
         for shard in self.workers:
-            if hashed_value >= shard['min_hash'] and hashed_value <= shard['max_hash']:
+            if hashed_value >= int(shard['min_hash']) and hashed_value <= int(shard['max_hash']):
                 return shard
 
     def insert_into_table(self, shard_id, host, port, records):
@@ -87,21 +87,22 @@ class CitusConsumer(KafkaConsumer):
             rec = '('
             for column in column_list:
                 values.append(record[column])
-                rec += '%s'
+                rec += '%s,'
 
             rec += ')'
+            rec = rec.replace(',)', ')')
             all_vals.append(rec)
-
 
         query = 'INSERT INTO {} ({}) VALUES {}'.format(table_name, columns, ', '.join(all_vals))
 
-        conn = psycopg2.connect(host=host, port=port,
+        conn = psycopg2.connect(host=host, port=str(port),
                                 dbname=self.database, user=self.username,
-                                password=self.password)
+                                password=self.password,
+                                sslmode='require')
 
         cursor = conn.cursor()
-        cursor.execute(query)
-        cursor.commit()
+        cursor.execute(query, values)
+        conn.commit()
 
         cursor.close()
         conn.close()
