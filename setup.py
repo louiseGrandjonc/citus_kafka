@@ -5,7 +5,7 @@ from setuptools import setup, Command, find_packages
 
 # Pull version from source without importing
 # since we can't import something we haven't built yet :)
-exec(open('kafka/version.py').read())
+exec(open('src/version.py').read())
 
 
 here = os.path.abspath(os.path.dirname(__file__))
