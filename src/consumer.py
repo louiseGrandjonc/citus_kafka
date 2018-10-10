@@ -1,5 +1,5 @@
 import json
-
+import psycopg2
 from kafka.consumer import KafkaConsumer
 
 from utils import hash_bi
@@ -81,10 +81,27 @@ class CitusConsumer(KafkaConsumer):
         columns = ', '.join(column_list)
 
 
-        query = 'INSERT INTO {} ({}) VALUES'.format(table_name, columns)
-
-
         values = []
+        all_vals = []
         for record in records:
+            rec = '('
             for column in column_list:
                 values.append(record[column])
+                rec += '%s'
+
+            rec += ')'
+            all_vals.append(rec)
+
+
+        query = 'INSERT INTO {} ({}) VALUES {}'.format(table_name, columns, ', '.join(all_vals))
+
+        conn = psycopg2.connect(host=host, port=port,
+                                dbname=self.database, user=self.username,
+                                password=self.password)
+
+        cursor = conn.cursor()
+        cursor.execute(query)
+        cursor.commit()
+
+        cursor.close()
+        conn.close()

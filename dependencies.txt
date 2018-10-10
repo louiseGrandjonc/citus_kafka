@@ -1,1 +1,2 @@
+psycopg2
 kafka-python==1.4.3
