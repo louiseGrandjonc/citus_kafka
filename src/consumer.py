@@ -51,7 +51,6 @@ class CitusConsumer(KafkaConsumer):
         # raise error if column in json not in columns
         try:
             record = json.loads(message.value.decode('utf8').replace("'", '"'))
-            print(record)
         except:
             return None
 
@@ -95,6 +94,8 @@ class CitusConsumer(KafkaConsumer):
 
         query = 'INSERT INTO {} ({}) VALUES {}'.format(table_name, columns, ', '.join(all_vals))
 
+        print(host, shard_id)
+        print(records)
         conn = psycopg2.connect(host=host, port=str(port),
                                 dbname=self.database, user=self.username,
                                 password=self.password,
